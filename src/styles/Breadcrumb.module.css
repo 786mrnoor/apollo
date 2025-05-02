@@ -1,0 +1,32 @@
+.breadcrumb {
+    padding: 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    a {
+        font-size: 11px;
+        text-transform: capitalize;
+        padding-right: 12px;
+        color: #106c89;
+        text-decoration: none;
+        outline: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+
+        &:last-child{
+            cursor: auto;
+        }
+
+        &:not(:last-child)::after{
+            display: inline-block;
+            content: '';
+            width: 10px;
+            aspect-ratio: 1;
+            background: url('/angle-down.svg') no-repeat;
+            rotate: -90deg;
+        }
+    }
+}

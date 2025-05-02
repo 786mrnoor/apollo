@@ -1,0 +1,172 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    min-height: 50px;
+    height: 100dvh;
+    overflow-y: auto;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        padding: 18px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            color: #121414;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        button {
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: #106c89;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+    }
+
+    .body {
+        display: flex;
+        flex: 1;
+        /* border-top: 1px solid #f3f3f3; */
+        border-block: 1px solid #f3f3f3;
+
+        .filterKeys {
+            border-right: 1px solid #f4f4f5;
+            width: 100%;
+            max-width: 160px;
+
+            li {
+                padding: 12px 16px;
+                display: flex;
+                border-bottom: 1px solid #e7e7e5;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 20px;
+                color: #121414;
+
+                &.active {
+                    background: #f6f6f6;
+                }
+            }
+        }
+
+        .filterOptions {
+            padding: 16px;
+            flex: 1 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 100%;
+            overflow: auto;
+
+            label {
+                position: relative;
+                padding-left: 22px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #f3f3f3;
+                cursor: pointer;
+                font-size: 14px;
+                line-height: 20px;
+
+                input {
+                    display: none;
+                }
+
+                .checkboxText {
+                    color: #121414;
+                    font-size: 14px;
+                    line-height: 18px;
+                }
+
+                .checkMark {
+                    width: 14px;
+                    height: 14px;
+                    position: absolute;
+                    border: 1px solid #989795;
+                    left: 0;
+                    top: 3px;
+                    border-radius: 3px;
+                }
+
+                input:checked~.checkMark {
+                    border: 1px solid #3d88a0;
+                    background: #3d88a0;
+
+                    &::after {
+                        content: "";
+                        width: 8px;
+                        height: 4px;
+                        position: absolute;
+                        border: solid #fff;
+                        border-width: 0 0 1px 1px;
+                        transform: rotate(-45deg);
+                        top: 3px;
+                        left: 2.5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        button {
+            flex: 1 1;
+            background: #fff;
+            color: #106c89;
+            border-radius: 8px;
+            border: 1px solid #106c89;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            min-width: 70px;
+            cursor: pointer;
+            transition: all .2s ease;
+
+
+            &:last-child {
+                background-color: #106c89;
+                color: #fff;
+            }
+
+            &:hover:not(:last-child) {
+                background-color: #ddf1f8;
+                box-shadow: 0 8px 20px #bebebb99;
+            }
+        }
+    }
+
+}
+
+body:has(.modal) {
+    overflow: hidden;
+    padding-right: 6px;
+}
+
+@media (width > 767px) {
+    body:has(.modal) {
+        overflow: auto;
+    }
+
+    .modal {
+        display: none;
+    }
+}

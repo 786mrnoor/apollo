@@ -1,0 +1,98 @@
+.heading {
+    padding: 0 16px;
+
+    h1 {
+        font-size: 21px;
+        font-weight: 700;
+        color: #121414;
+
+        .count {
+            font-size: 12px;
+            font-weight: 400;
+        }
+    }
+
+    .sortSelect {
+        display: none;
+    }
+}
+
+@media (width > 767px) {
+    .heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+
+        h1 {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            column-gap: 16px;
+            font-size: 24px;
+
+            .count {
+                font-size: 16px;
+            }
+        }
+
+        .sortSelect {
+            display: block;
+            width: 300px;
+            position: relative;
+
+            button {
+                padding: 12px;
+                color: #121414;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                height: 52px;
+                border-radius: 8px;
+                font-weight: 400;
+                border: 1px solid #ccccc9;
+                background: #fff;
+                cursor: pointer;
+
+                &:focus {
+                    border-color: #106c89;
+                }
+
+                img:first-child {
+                    margin-right: 12px;
+                }
+
+                img:last-child {
+                    margin-left: auto;
+                }
+            }
+
+            ul {
+                max-height: 240px;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                z-index: 2;
+                overflow: auto;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px #bebebb99;
+                list-style: none;
+
+                li {
+                    padding: 12px 16px;
+                    font-weight: 400;
+                    background: #fff;
+                    font-size: 12px;
+                    line-height: 16px;
+
+                    &:hover {
+                        background-color: #f6f6f6;
+                    }
+                }
+            }
+        }
+    }
+}

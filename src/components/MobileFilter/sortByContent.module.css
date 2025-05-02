@@ -1,0 +1,108 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    background: rgba(18, 20, 20, .5);
+    z-index: 10;
+}
+
+body:has(.modal) {
+    overflow: hidden;
+    padding-right: 6px;
+}
+
+.sortByContent {
+    align-self: flex-end;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    line-height: 20px;
+    overflow: auto;
+    background-color: white;
+    width: 100%;
+    font-family: var(--ibm-plex-font);
+    border-radius: 10px 10px 0 0;
+
+    h2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+        color: #121414;
+
+        img {
+            width: 18px;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+        display: flex;
+        align-items: unset;
+        justify-content: unset;
+        flex-direction: column;
+        gap: 24px;
+
+        li {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            input {
+                display: none;
+            }
+
+            label {
+                width: 100%;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 16px;
+                color: #121414;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+
+                &::before {
+                    content: "";
+                    width: 16px;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
+                    margin-right: 12px;
+                    z-index: 2;
+                    border: 2px solid #3d88a0;
+                    box-sizing: border-box;
+                }
+
+            }
+
+            input:checked+label::after {
+                content: " ";
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                background-color: #3d88a0;
+                position: absolute;
+                top: 50%;
+                left: 4px;
+                transform: translateY(-50%);
+            }
+        }
+    }
+}
+
+@media (width > 767px) {
+    body:has(.modal) {
+        overflow: auto;
+    }
+
+    .modal {
+        display: none;
+    }
+}
