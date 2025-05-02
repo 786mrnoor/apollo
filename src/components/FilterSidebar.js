@@ -54,7 +54,7 @@ export default function FilterSidebar({ appliedFilters, labels }) {
       <div className={styles.divider}></div>
 
       <div className={styles.filters}>
-        <a href="/?sortby=distance">Show Doctors Near Me</a>
+        <Link href="/?sortby=distance">Show Doctors Near Me</Link>
 
         {
           Object.entries(filterOptions).map(([key, options]) => (
