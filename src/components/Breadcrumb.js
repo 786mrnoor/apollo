@@ -1,11 +1,12 @@
 import styles from '@/styles/Breadcrumb.module.css';
+import Link from 'next/link';
 
 export default function BreadCrumb() {
     return (
         <div className={styles.breadcrumb}>
-            <a href="/">Home</a>
-            <a href="#">Doctors</a>
-            <a href="#" className="active">general physicians</a>
+            <Link href="/">Home</Link>
+            <Link href="#">Doctors</Link>
+            <Link href="#" className="active">general physicians</Link>
         </div>
     )
 };

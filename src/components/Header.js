@@ -1,14 +1,15 @@
 import styles from '@/styles/Header.module.css';
 // import AngleDown from '@/components/svg/AngleDown';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
-        <a href="/">
+        <Link href="/">
           <img src="https://images.apollo247.in/images/icons/apollo247.svg" title="Online Doctor Consultation &amp; Medicines" alt="Online Doctor Consultation &amp; Medicines" />
-        </a>
+        </Link>
 
         <div className={styles.headerLocation}>
           <img src='http://images.apollo247.in/images/ic_location_new.svg?tr=q-80,w-50,dpr-4,c-at_max' alt="chooseLocation" width="24" height="24" />
@@ -33,28 +34,28 @@ export default function Header() {
       <div className={styles.headerBottom}>
         <ul>
           <li>
-            <a href="#">Buy Medicines</a>
+            <Link href="#">Buy Medicines</Link>
           </li>
           <li>
-            <a href="#">Find Doctors</a>
+            <Link href="#">Find Doctors</Link>
           </li>
           <li>
-            <a href="#">Lab Tests</a>
+            <Link href="#">Lab Tests</Link>
           </li>
           <li>
-            <a href="#">Circle Membership</a>
+            <Link href="#">Circle Membership</Link>
           </li>
           <li>
-            <a href="#">Health Records</a>
+            <Link href="#">Health Records</Link>
           </li>
           <li>
-            <a href="#">Diabetes Reversal</a>
+            <Link href="#">Diabetes Reversal</Link>
           </li>
           <li>
-            <a href="#">
+            <Link href="#">
               Buy Insurance
               <span>New</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
