@@ -6,6 +6,7 @@ import Image from 'next/image';
 import FilterOptions from './FilterOptions';
 import useFilter from '@/hooks/useFilter';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function FilterSidebar({ appliedFilters, labels }) {
   // const [filters, handleCheckboxChange] = useFilter(appliedFilters);
