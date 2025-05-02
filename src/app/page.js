@@ -33,7 +33,7 @@ async function fetchDoctors(searchParams, filters) {
 
   const query = new URLSearchParams(searchParams)
   query.set('filterObject', JSON.stringify(filter));
-  const res = await fetch(`http://localhost:5000/api/list-doctors?${query?.toString()}`, { cache: 'no-store' });
+  const res = await fetch(`https://apollo-backend.vercel.app/api/list-doctors?${query?.toString()}`, { cache: 'no-store' });
   const data = await res.json();
   return data;
 }
