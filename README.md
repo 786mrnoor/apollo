@@ -15,7 +15,7 @@ It supports filtering doctors by **consultation mode**, **experience**, **fees**
 ## ⚙️ Technologies Used
 
 ### Frontend (Next.js)
-- **Next.js 14 (App Router)**
+- **Next.js 15 (App Router)**
 - **Vanilla CSS**
 - **Dynamic Filters with SearchParams**
 - **Off-page SEO Support**
