@@ -25,12 +25,11 @@ export default function useFilter(appliedFilter) {
 
     function applyFilter() {
         const params = new URLSearchParams(window.location.search);
-        Object.entries(filters).map(([key, options]) => {
-            if (options.length > 0) {
-                filters[key] = options;
-            }
+        params.delete('page')
+        Object.entries(filters).forEach(([key, options]) => {
+            params.delete(key);
+            options.forEach(value => params.append(key, value));
         });
-        params.set('filterObject', JSON.stringify(filters));
         router.replace(`/?${params.toString()}`);
     }
 

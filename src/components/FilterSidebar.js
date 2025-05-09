@@ -8,31 +8,29 @@ import useFilter from '@/hooks/useFilter';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function FilterSidebar({ appliedFilters, labels }) {
+export default function FilterSidebar({ initialFilters, labels }) {
   // const [filters, handleCheckboxChange] = useFilter(appliedFilters);
 
   const router = useRouter();
   function handleCheckboxChange(key, value) {
-    const currentValues = appliedFilters[key];
+    const currentValues = initialFilters[key];
     const isChecked = currentValues.includes(value);
 
-    let filtersObj = {
-      ...appliedFilters,
-      [key]: isChecked
-        ? currentValues.filter((v) => v !== value) // remove
-        : [...currentValues, value]              // add
-    };
-
     const params = new URLSearchParams(window.location.search);
-    Object.entries(filtersObj).map(([key, options]) => {
-      if (options.length > 0) {
-        filtersObj[key] = options;
-      }
-    })
-    params.set('filterObject', JSON.stringify(filtersObj));
+    params.delete('page');
+    if (isChecked) {
+      params.delete(key, value);
+    } else {
+      params.append(key, value);
+    }
     router.replace(`/?${params.toString()}`);
   }
 
+  function removeFilter(key, value) {
+    const params = new URLSearchParams(window.location.search);
+    params.delete(key, value);
+    router.replace(`/?${params.toString()}`);
+  }
 
   return (
     <aside className={styles.sidebar}>
@@ -43,10 +41,10 @@ export default function FilterSidebar({ appliedFilters, labels }) {
 
       <ul className={styles.appliedFilters}>
         {
-          labels.map(value => (
+          labels.map(({ value, label, key }) => (
             <li key={value} className={styles.appliedFilter}>
-              {value}
-              <Image src='/blueClose.webp' alt='close' width={20} height={20} />
+              {label}
+              <Image src='/blueClose.webp' alt='close' width={20} height={20} onClick={() => removeFilter(key, value)} />
             </li>
           ))
         }
@@ -61,7 +59,7 @@ export default function FilterSidebar({ appliedFilters, labels }) {
           Object.entries(filterOptions).map(([key, options]) => (
             <React.Fragment key={key}>
               <p>{filterLabels[key]}</p>
-              <FilterOptions filterKey={key} filters={appliedFilters} options={options} onChange={handleCheckboxChange} />
+              <FilterOptions filterKey={key} filters={initialFilters} options={options} onChange={handleCheckboxChange} />
             </React.Fragment>
           ))
         }

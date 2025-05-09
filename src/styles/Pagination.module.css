@@ -33,5 +33,10 @@
       }
     }
 
+    &.disabled {
+      background: #ddd;
+      color: gray;
+      pointer-events: none;
+    }
   }
 }

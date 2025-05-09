@@ -6,13 +6,20 @@ import { useState } from 'react';
 import Image from 'next/image';
 import FilterContent from './FilterContent';
 import useSort from '@/hooks/useSort';
+import { useRouter } from 'next/navigation';
 // import validSortLabel from '@/utils/validSortLabel';
 
-export default function MobileFilter({ filters, labels, sortBy }) {
-    const [sort, label, submit] = useSort(sortBy);
-
+export default function MobileFilter({ initialFilters, labels, sortBy }) {
+    const [sort, label] = useSort(sortBy);
     const [showSort, setShowSort] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
+    const router = useRouter();
+    
+    function removeFilter(key, value) {
+        const params = new URLSearchParams(window.location.search);
+        params.delete(key, value);
+        router.replace(`/?${params.toString()}`);
+    }
     return (
         <>
             <ul className={styles.mobileFilter}>
@@ -26,10 +33,10 @@ export default function MobileFilter({ filters, labels, sortBy }) {
                 </li>
 
                 {
-                    labels.map(label => (
-                        <li key={label} className={styles.appliedFilter}>
+                    labels.map(({ label, value, key }) => (
+                        <li key={value} className={styles.appliedFilter}>
                             {label}
-                            <Image src='/blueClose.webp' alt='close' width={20} height={20} />
+                            <Image src='/blueClose.webp' alt='close' width={20} height={20} onClick={() => removeFilter(key, value)} />
                         </li>
                     ))
                 }
@@ -41,7 +48,7 @@ export default function MobileFilter({ filters, labels, sortBy }) {
             }
             {
                 showFilter &&
-                <FilterContent appliedFilter={filters} setShowModal={setShowFilter} />
+                <FilterContent initialFilters={initialFilters} setShowModal={setShowFilter} />
             }
         </>
     )

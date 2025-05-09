@@ -41,7 +41,7 @@ export const filterLabels = {
     consultMode: 'Mode Of Consult',
     experience: 'Experience (In Years)',
     fees: 'Fees (In Rupees)',
-    language: 'Language',
+    languages: 'Language',
     facilityType: 'Facility'
 }
 
@@ -114,7 +114,7 @@ export const filterOptions = {
             }
         },
     ],
-    'language': [
+    'languages': [
         {
             label: 'English',
             value: 'English'

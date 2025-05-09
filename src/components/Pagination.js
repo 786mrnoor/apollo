@@ -1,30 +1,37 @@
 'use client';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import styles from '@/styles/Pagination.module.css';
 
-export default function Pagination({ total, currentPage }) {
+export default function Pagination({ total, currentPage = 1 }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const page = Number(currentPage) || 1;
-  const limit = 10;
 
   const goToPage = (pageNumber) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
     params.set('page', pageNumber);
-    router.push(`/destination?${params.toString()}`);
+    router.push(`/?${params.toString()}`);
   };
-
-  if (total <= 1) return null;
 
   return (
     <ul className={styles.pagination}>
-      <li>&lt;</li>
+      <li 
+        onClick={() => goToPage(currentPage - 1)}
+        className={currentPage <= 1 ? styles.disabled : ''}
+      >&lt;</li>
       {
         Array.from({ length: total }).map((v, i) => (
-          <li key={i} className={currentPage === i ? styles.active : ''}>{i + 1}</li>
+          <li
+            key={i}
+            className={currentPage === i + 1 ? styles.active : ''}
+            onClick={() => goToPage(i + 1)}
+          >
+            {i + 1}
+          </li>
         ))
       }
-      <li>&gt;</li>
+      <li 
+        onClick={() => goToPage(currentPage + 1)}
+        className={currentPage >= total ? styles.disabled : ''}
+      >&gt;</li>
     </ul>
   );
 }

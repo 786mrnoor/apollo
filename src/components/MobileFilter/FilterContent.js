@@ -5,11 +5,11 @@ import { filterLabels, filterOptions } from '@/filter-sort-data';
 import styles from './FilterContent.module.css';
 import useFilter from '@/hooks/useFilter';
 
-export default function FilterContent({ appliedFilter, setShowModal }) {
+export default function FilterContent({ initialFilters, setShowModal }) {
     const [filterKey, setFilterKey] = useState('consultMode');
-    const [filters, handleCheckboxChange, applyFilter] = useFilter(appliedFilter);
+    const [filters, handleCheckboxChange, applyFilter] = useFilter(initialFilters);
 
-    function submit(){
+    function submit() {
         setShowModal(false);
         applyFilter();
     }

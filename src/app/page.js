@@ -4,9 +4,9 @@ import FilterSidebar from '@/components/FilterSidebar';
 import MobileFilter from '@/components/MobileFilter/MobileFilter';
 import Heading from '@/components/Heading';
 import Breadcrumb from '@/components/Breadcrumb';
-import appliedFilters from '@/utils/appliedFilters';
-import { filterOptions } from '@/filter-sort-data';
 import DoctorList from '@/components/DoctorList';
+import validateFilters from '@/utils/validateFilters';
+import generateLabels from '@/utils/generateLabels';
 
 export const metadata = {
   title: 'General Physician - Book Appointment Online with General Physician & Internal Medicine Doctors near you | Apollo 247',
@@ -14,44 +14,35 @@ export const metadata = {
   keywords: 'general physician, internal medicine, doctors, online consultation, Apollo247 clone',
 };
 
-async function fetchDoctors(searchParams, filters) {
-  let filter = { ...filters };
-  let experience = [];
-  filters.experience.forEach((exp) => {
-    let val = filterOptions.experience.find(e => e.value === exp);
-    if (val) experience.push(val?.queryValue);
-  })
-
-  let fees = [];
-  filters.fees.forEach(fee => {
-    let val = filterOptions.fees.find(e => e.value === fee);
-    if (val) fees.push(val.queryValue);
+async function fetchDoctors(searchParams) {
+  const query = new URLSearchParams();
+  Object.entries(searchParams).forEach(([key, options]) => {
+    if (Array.isArray(options)) {
+      options.forEach(value => query.append(key, value));
+    } else {
+      query.set(key, options);
+    }
   });
-
-  filter.experience = experience;
-  filter.fees = fees;
-
-  const query = new URLSearchParams(searchParams)
-  query.set('filterObject', JSON.stringify(filter));
-  const res = await fetch(`https://apollo-backend.vercel.app/api/list-doctors?${query?.toString()}`, { cache: 'no-store' });
+  const res = await fetch(`${process.env.BACKEND_URI}/api/list-doctors?${query?.toString()}`, { cache: 'no-store' });
   const data = await res.json();
   return data;
 }
 
 export default async function Destination({ searchParams }) {
   const search = await searchParams;
-  const [filters, labels] = appliedFilters(search?.filterObject);
+  const initialFilters = validateFilters(search);
+  const labels = generateLabels(initialFilters);
 
-  const { data: doctors = [], total = 0, page = 1, pages = 1 } = await fetchDoctors(search, filters);
+  const { data: doctors = [], total = 0, page = 1, pages = 1 } = await fetchDoctors(search);
   return (
     <>
       <Header />
       <main className={styles.container}>
-        <FilterSidebar appliedFilters={filters} labels={labels} />
+        <FilterSidebar initialFilters={initialFilters} labels={labels} />
 
         <div className={styles.rightSection}>
           <Breadcrumb />
-          <MobileFilter filters={filters} labels={labels} sortBy={search.sortby} />
+          <MobileFilter initialFilters={initialFilters} labels={labels} sortBy={search.sortby} />
           <Heading total={total} sortBy={search.sortby} />
 
           <div className={styles.doctorList}>
